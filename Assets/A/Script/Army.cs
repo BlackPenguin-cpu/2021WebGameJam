@@ -55,7 +55,7 @@ public class Army : MonoBehaviour
         rect.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         if (horse)
         {
-            rect.Translate(Vector3.down * Time.deltaTime * 2);
+            rect.Translate(Vector3.down * Time.deltaTime * 3);
         }
         else
         {
