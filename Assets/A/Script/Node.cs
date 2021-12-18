@@ -47,7 +47,7 @@ public class Node : Interaction
                 img.GetComponent<RectTransform>().SetParent(gameObject.GetComponent<RectTransform>());
                 img.GetComponent<RectTransform>().localPosition = Vector3.zero;
                 img.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-                img.GetComponent<RectTransform>().sizeDelta = new Vector2(1, 1);
+                img.GetComponent<RectTransform>().sizeDelta = new Vector2(0.5f, 0.5f);
                 img.GetComponent<RectTransform>().rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
                 img.GetComponent<RectTransform>().Translate(Vector3.down * 1);
                 img.GetComponent<Arrow>().arrow = node;
