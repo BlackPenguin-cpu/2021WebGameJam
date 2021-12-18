@@ -11,6 +11,13 @@ public class RoadManager : Singleton<RoadManager>
     public GameObject obj;
     public List<Sprite> sprites = new List<Sprite>();
 
+    protected override void Awake()
+    {
+        if (Instance != this)
+        {
+            GameObject.Destroy(this.gameObject);
+        }
+    }
     void Start()
     {
         SoundManager.Instance.PlaySound("게임시작");

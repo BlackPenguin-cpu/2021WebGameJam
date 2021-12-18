@@ -25,7 +25,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
-        if(Instance != this)
+        if (Instance != this)
         {
             GameObject.Destroy(this.gameObject);
         }
