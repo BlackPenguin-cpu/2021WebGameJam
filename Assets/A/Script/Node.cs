@@ -12,10 +12,13 @@ public class Node : Interaction
 	public bool your;
 	public NachimType nachim = NachimType.None;
 	private float duration;
+	private float duration2;
 	[SerializeField]
 	private Image image;
 	[SerializeField]
 	private TextMeshProUGUI text;
+	[SerializeField]
+	private Army army;
 
 	void Awake()
 	{
@@ -91,10 +94,10 @@ public class Node : Interaction
 				if (nachim == NachimType.Farm)
 				{
 					count++;
-				}
-				if (linkednodes.Find((Node x) => x.nachim == NachimType.Windvolume && x.mine) != null)
-				{
-					count += linkednodes.FindAll((Node x) => x.nachim == NachimType.Windvolume && x.mine).Count;
+					if (linkednodes.Find((Node x) => x.nachim == NachimType.Windvolume && x.mine == mine) != null)
+					{
+						count += linkednodes.FindAll((Node x) => x.nachim == NachimType.Windvolume && x.mine == mine).Count;
+					}
 				}
 				create += count;
 				duration = 0;
@@ -107,6 +110,31 @@ public class Node : Interaction
 		else if (your)
 		{
 			text.color = new Color(1, 0, 0);
+			duration2 += Time.deltaTime;
+			if (duration2 >= 3)
+			{
+				duration2 = 0;
+				int a = Mathf.RoundToInt(((float)create) / 10);
+				if(a != 0)
+                {
+					Node node = linkednodes[UnityEngine.Random.Range(0, linkednodes.Count)];
+					create -= a;
+					Army asdf = GameObject.Instantiate<Army>(army);
+					asdf.GetComponent<RectTransform>().SetParent(GameObject.Find("ArmyTeam").GetComponent<RectTransform>());
+					asdf.attack = node;
+					asdf.owner = this;
+					asdf.create = a;
+					asdf.Hajimari();
+				}
+			}
+			if(create >= 10 && nachim == NachimType.None)
+            {
+				if(UnityEngine.Random.Range(1, 1001) == 1)
+                {
+					NachimType nachimType = (NachimType)UnityEngine.Random.Range(2, 6);
+					nachim = nachimType;
+				}
+            }
 		}
 		else
 		{

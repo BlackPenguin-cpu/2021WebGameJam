@@ -63,7 +63,7 @@ public class Army : MonoBehaviour
         }
         if (Mathf.Abs(rect.localPosition.x - attack.GetComponent<RectTransform>().localPosition.x) < 6 && Mathf.Abs(rect.localPosition.y - attack.GetComponent<RectTransform>().localPosition.y) < 6)
         {
-            if (attack.mine)
+            if ((attack.your || mine) && (attack.mine == mine))
             {
                 attack.create += create;
             }
@@ -79,7 +79,14 @@ public class Army : MonoBehaviour
                 }
                 if (attack.create <= 0)
                 {
-                    attack.create *= -1;
+                    if (yose)
+                    {
+                        attack.create /= -2;
+                    }
+                    else
+                    {
+                        attack.create *= -1;
+                    }
                     attack.your = !mine;
                     attack.mine = mine;
                     if(attack.nachim == Node.NachimType.Castle)
