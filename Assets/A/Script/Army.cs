@@ -8,6 +8,8 @@ public class Army : MonoBehaviour
     public Node owner;
     public int create;
     public Node attack;
+    private bool yose = false;
+    private bool horse = false;
     [SerializeField]
     private Sprite sprite;
     [SerializeField]
@@ -32,6 +34,14 @@ public class Army : MonoBehaviour
         {
             gameObject.GetComponent<Image>().sprite = sprite2;
         }
+        if(owner.nachim == Node.NachimType.Assisant)
+        {
+            yose = true;
+        }
+        else if (owner.nachim == Node.NachimType.HorseCreater)
+        {
+            horse = true;
+        }
     }
 
     void Update()
@@ -40,7 +50,14 @@ public class Army : MonoBehaviour
         Vector2 target = attack.GetComponent<RectTransform>().localPosition;
         float angle = Mathf.Atan2(me.y - target.y, me.x - target.x) * Mathf.Rad2Deg;
         rect.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-        rect.Translate(Vector3.down * Time.deltaTime);
+        if (horse)
+        {
+            rect.Translate(Vector3.down * Time.deltaTime * 2);
+        }
+        else
+        {
+            rect.Translate(Vector3.down * Time.deltaTime);
+        }
         if (Mathf.Abs(rect.localPosition.x - attack.GetComponent<RectTransform>().localPosition.x) < 6 && Mathf.Abs(rect.localPosition.y - attack.GetComponent<RectTransform>().localPosition.y) < 6)
         {
             if (attack.mine)
@@ -49,10 +66,17 @@ public class Army : MonoBehaviour
             }
             else
             {
-                attack.create -= create;
+                if (yose)
+                {
+                    attack.create -= create*2;
+                }
+                else
+                {
+                    attack.create -= create;
+                }
                 if (attack.create <= 0)
                 {
-                    attack.create = 0;
+                    attack.create *= -1;
                     attack.your = false;
                     attack.mine = true;
                 }

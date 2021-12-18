@@ -9,6 +9,7 @@ public class Node : Interaction
     public int create;
     public bool mine;
     public bool your;
+    public NachimType nachim = NachimType.None; 
     private float duration;
     [SerializeField]
     private Image image;
@@ -28,7 +29,7 @@ public class Node : Interaction
 
     protected override void Action()
     {
-        if (mine)
+        if(RoadManager.Instance.selectnode == this)
         {
             if (RoadManager.Instance.nachim.Count > 0)
             {
@@ -37,6 +38,27 @@ public class Node : Interaction
                     GameObject.Destroy(img.gameObject);
                 }
                 RoadManager.Instance.nachim = new List<Image>();
+            }
+            RoadManager.Instance.obj.SetActive(false);
+            RoadManager.Instance.selectnode = new Node();
+        }
+        else if (mine)
+        {
+            if (RoadManager.Instance.nachim.Count > 0)
+            {
+                foreach (Image img in RoadManager.Instance.nachim)
+                {
+                    GameObject.Destroy(img.gameObject);
+                }
+                RoadManager.Instance.nachim = new List<Image>();
+            }
+            if(nachim == NachimType.None)
+            {
+                RoadManager.Instance.obj.SetActive(true);
+            }
+            else
+            {
+                RoadManager.Instance.obj.SetActive(false);
             }
             foreach (Node node in linkednodes)
             {
@@ -53,6 +75,7 @@ public class Node : Interaction
                 img.GetComponent<Arrow>().arrow = node;
                 RoadManager.Instance.nachim.Add(img);
             }
+            RoadManager.Instance.selectnode = this;
         }
     }
 
@@ -63,7 +86,16 @@ public class Node : Interaction
             duration += Time.deltaTime;
             if (duration >= 1)
             {
-                create++;
+                int count = 1;
+                if(nachim == NachimType.Farm)
+                {
+                    count++;
+                }
+                if (linkednodes.Find((Node x) => x.nachim == NachimType.Windvolume && x.mine) != null)
+                {
+                    count += linkednodes.FindAll((Node x) => x.nachim == NachimType.Windvolume && x.mine).Count;
+                }
+                create += count;
                 duration = 0;
             }
         }
@@ -80,5 +112,60 @@ public class Node : Interaction
             text.color = new Color(0, 0, 0);
         }
         text.text = create.ToString();
+        Image img = gameObject.GetComponent<Image>();
+        if(nachim == NachimType.Assisant)
+        {
+            if (mine)
+            {
+                img.sprite = RoadManager.Instance.sprites[0];
+            }
+            else
+            {
+                img.sprite = RoadManager.Instance.sprites[1];
+            }
+        }
+        else if(nachim == NachimType.Farm)
+        {
+            if (mine)
+            {
+                img.sprite = RoadManager.Instance.sprites[2];
+            }
+            else
+            {
+                img.sprite = RoadManager.Instance.sprites[3];
+            }
+        }
+        else if (nachim == NachimType.HorseCreater)
+        {
+            if (mine)
+            {
+                img.sprite = RoadManager.Instance.sprites[4];
+            }
+            else
+            {
+                img.sprite = RoadManager.Instance.sprites[5];
+            }
+        }
+        else if (nachim == NachimType.Windvolume)
+        {
+            if (mine)
+            {
+                img.sprite = RoadManager.Instance.sprites[6];
+            }
+            else
+            {
+                img.sprite = RoadManager.Instance.sprites[7];
+            }
+        }
+    }
+
+    public enum NachimType
+    {
+        None,
+        Castle,
+        Assisant,
+        Windvolume,
+        Farm,
+        HorseCreater
     }
 }
