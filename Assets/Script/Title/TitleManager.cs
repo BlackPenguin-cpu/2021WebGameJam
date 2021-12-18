@@ -36,6 +36,5 @@ public class TitleManager : Interaction
 	protected override void Start()
 	{
 		base.Start();
-		DeveloperPannel.SetActive(false);
 	}
 }
