@@ -11,7 +11,7 @@ public class Node : MonoBehaviour
 
     void Start()
     {
-        RoadManager.instance.nodes.Add(this);
+        RoadManager.Instance.nodes.Add(gameObject.GetComponent<Node>());
     }
 
     void Update()

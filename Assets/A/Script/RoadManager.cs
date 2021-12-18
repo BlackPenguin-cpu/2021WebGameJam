@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class RoadManager : Singleton<RoadManager>
 {
-    public List<Node> nodes = new List<Node>();
-    [SerializeField]
-    private SpriteRenderer sprite;
+    public List<Node> nodes;
+    [SerializeField] private SpriteRenderer sprite;
     void Start()
     {
         List<Node> connectnodes = new List<Node>();
