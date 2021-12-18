@@ -11,7 +11,7 @@ public class TitleManager : Interaction
 	{
 		if (TitleNum == 0)
 		{
-			SceneManager.LoadScene("Main");
+			SceneManager.LoadScene("Stage1");
 		}
 		if (TitleNum == 1)
 		{
