@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : Interaction
 {
-	public GameObject Title, DeveloperPannel;
+	public GameObject Title, DeveloperPannel, ClosePannel;
 	public int TitleNum;
 	protected override void Action()
 	{
@@ -15,7 +15,8 @@ public class TitleManager : Interaction
 		}
 		if (TitleNum == 1)
 		{
-			Debug.Log("게임 종료");
+			Title.SetActive(false);
+			ClosePannel.SetActive(true);
 		}
 		if (TitleNum == 2)
 		{
@@ -30,6 +31,15 @@ public class TitleManager : Interaction
 		if (TitleNum == 4)
 		{
 			Debug.Log("설정");
+		}
+		if (TitleNum == 5)
+		{
+			ClosePannel.SetActive(false);
+			Title.SetActive(true);
+		}
+		if (TitleNum == 6)
+		{
+			Debug.Log("게임 종료");
 		}
 	}
 
