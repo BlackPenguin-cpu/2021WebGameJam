@@ -13,6 +13,7 @@ public abstract class Interaction : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(() => { Action(); });
+        button.onClick.AddListener(() => { SoundManager.Instance.PlaySound("클릭_버튼"); });
     }
 
     protected abstract void Action();

@@ -89,15 +89,20 @@ public class Army : MonoBehaviour
                     }
                     attack.your = !mine;
                     attack.mine = mine;
+
+                    SoundManager.Instance.PlaySound("¶¥Á¡·É");
+
                     if(attack.nachim == Node.NachimType.Castle)
                     {
                         if (attack.your)
                         {
-                            SceneManager.LoadScene("GameClear");
+                            SoundManager.Instance.PlaySound("½Â");
+                            SceneManager.LoadScene("GameOver");
                         }
                         else if (attack.mine)
                         {
-                            SceneManager.LoadScene("GameOver");
+                            SoundManager.Instance.PlaySound("ÆÐ¹è");
+                            SceneManager.LoadScene("GameClear");
                         }
                     }
                 }
