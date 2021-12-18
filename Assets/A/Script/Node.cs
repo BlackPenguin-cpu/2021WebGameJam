@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 public class Node : Interaction
 {
@@ -111,13 +113,13 @@ public class Node : Interaction
 		{
 			text.color = new Color(1, 0, 0);
 			duration2 += Time.deltaTime;
-			if (duration2 >= 3)
+			if (duration2 >= 2)
 			{
 				duration2 = 0;
 				int a = Mathf.RoundToInt(((float)create) / 10);
 				if(a != 0)
                 {
-					Node node = linkednodes[UnityEngine.Random.Range(0, linkednodes.Count)];
+					Node node = linkednodes.OrderBy(x => x.create).ToList()[0];
 					create -= a;
 					Army asdf = GameObject.Instantiate<Army>(army);
 					asdf.GetComponent<RectTransform>().SetParent(GameObject.Find("ArmyTeam").GetComponent<RectTransform>());
@@ -129,10 +131,25 @@ public class Node : Interaction
 			}
 			if(create >= 10 && nachim == NachimType.None)
             {
-				if(UnityEngine.Random.Range(1, 1001) == 1)
-                {
-					NachimType nachimType = (NachimType)UnityEngine.Random.Range(2, 6);
-					nachim = nachimType;
+				if(Random.Range(1, 1001) == 1)
+				{
+					if (linkednodes.Find((Node x) => x.nachim == NachimType.Windvolume && x.mine == mine) != null)
+					{
+						if (Random.Range(1, 3) == 1)
+						{
+							nachim = NachimType.Farm;
+						}
+                        else
+						{
+							NachimType nachimType = (NachimType)UnityEngine.Random.Range(2, 6);
+							nachim = nachimType;
+						}
+					}
+                    else
+                    {
+						NachimType nachimType = (NachimType)UnityEngine.Random.Range(2, 6);
+						nachim = nachimType;
+					}
 				}
             }
 		}
