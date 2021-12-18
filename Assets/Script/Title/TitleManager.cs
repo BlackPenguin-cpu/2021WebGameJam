@@ -12,6 +12,7 @@ public class TitleManager : Interaction
         if (TitleNum == 0)
         {
             SoundManager.Instance.PlaySound("게임시작");
+            SoundManager.Instance.Playbgm("인게임");
             SceneManager.LoadScene("Stage1");
         }
         if (TitleNum == 1)
@@ -40,7 +41,7 @@ public class TitleManager : Interaction
         }
         if (TitleNum == 6)
         {
-            Debug.Log("게임 종료");
+            Application.Quit();
         }
     }
 

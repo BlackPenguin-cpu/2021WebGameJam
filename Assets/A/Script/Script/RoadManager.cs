@@ -11,8 +11,9 @@ public class RoadManager : Singleton<RoadManager>
     public GameObject obj;
     public List<Sprite> sprites = new List<Sprite>();
 
-    protected override void Awake()
+    void Start()
     {
-        
+        SoundManager.Instance.PlaySound("게임시작");
+        SoundManager.Instance.Playbgm("인게임");
     }
 }

@@ -96,12 +96,10 @@ public class Army : MonoBehaviour
                     {
                         if (attack.your)
                         {
-                            SoundManager.Instance.PlaySound("½Â");
                             SceneManager.LoadScene("GameOver");
                         }
                         else if (attack.mine)
                         {
-                            SoundManager.Instance.PlaySound("ÆÐ¹è");
                             SceneManager.LoadScene("GameClear");
                         }
                     }
