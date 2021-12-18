@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Army : MonoBehaviour
@@ -8,6 +9,7 @@ public class Army : MonoBehaviour
     public Node owner;
     public int create;
     public Node attack;
+    private bool mine = false;
     private bool yose = false;
     private bool horse = false;
     [SerializeField]
@@ -26,6 +28,7 @@ public class Army : MonoBehaviour
         rect.localPosition = owner.GetComponent<RectTransform>().localPosition;
         rect.localScale = new Vector3(1, 1, 1);
         rect.sizeDelta = new Vector2(30, 60);
+        mine = owner.mine;
         if (owner.mine)
         {
             gameObject.GetComponent<Image>().sprite = sprite;
@@ -52,7 +55,7 @@ public class Army : MonoBehaviour
         rect.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         if (horse)
         {
-            rect.Translate(Vector3.down * Time.deltaTime * 2);
+            rect.Translate(Vector3.down * Time.deltaTime * 3);
         }
         else
         {
@@ -77,8 +80,19 @@ public class Army : MonoBehaviour
                 if (attack.create <= 0)
                 {
                     attack.create *= -1;
-                    attack.your = false;
-                    attack.mine = true;
+                    attack.your = !mine;
+                    attack.mine = mine;
+                    if(attack.nachim == Node.NachimType.Castle)
+                    {
+                        if (attack.your)
+                        {
+                            SceneManager.LoadScene("GameClear");
+                        }
+                        else if (attack.mine)
+                        {
+                            SceneManager.LoadScene("GameOver");
+                        }
+                    }
                 }
             }
             GameObject.Destroy(this.gameObject);

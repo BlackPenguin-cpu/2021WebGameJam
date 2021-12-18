@@ -103,18 +103,10 @@ public class Node : Interaction
 		if (mine)
 		{
 			text.color = new Color(0, 0, 1);
-			if (name == "Circle")
-			{
-				SceneManager.LoadScene("GameClear");
-			}
 		}
 		else if (your)
 		{
 			text.color = new Color(1, 0, 0);
-			if (name == "Circle (22)")
-			{
-				SceneManager.LoadScene("GameOver");
-			}
 		}
 		else
 		{
