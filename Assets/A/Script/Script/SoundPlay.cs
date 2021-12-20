@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class SoundPlay : MonoBehaviour
 {
@@ -16,5 +17,6 @@ public class SoundPlay : MonoBehaviour
             SoundManager.Instance.PlaySound("½Â");
         }
         SoundManager.Instance.Playbgm("Å¸ÀÌÆ²");
+        PhotonNetwork.Disconnect();
     }
 }

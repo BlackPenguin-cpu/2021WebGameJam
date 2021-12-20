@@ -12,8 +12,7 @@ public class TitleManager : Interaction
         if (TitleNum == 0)
         {
             SoundManager.Instance.PlaySound("게임시작");
-            SoundManager.Instance.Playbgm("인게임");
-            SceneManager.LoadScene("Stage1");
+            SceneManager.LoadScene("Lobby");
         }
         if (TitleNum == 1)
         {
